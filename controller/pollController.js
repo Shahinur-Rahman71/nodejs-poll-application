@@ -29,7 +29,7 @@ exports.createPollPostController = async (req, res, next) => {
         console.log(e)
     }
 
-    console.log(options)
+    //console.log(options)
 
     res.render('create');
 }

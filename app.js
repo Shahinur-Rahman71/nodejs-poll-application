@@ -23,7 +23,7 @@ app.get('/polls/:id', allController.viewPollGetController)
 app.post('/polls/:id', allController.viewPollPostController)
 
 app.get('/',(req, res) => {
-    res.render('home')
+    res.render('create')
 })
 
 mongoose.connect('mongodb://localhost:27017/test')
