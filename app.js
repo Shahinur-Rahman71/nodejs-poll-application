@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose'); // aita diya database er sathe communication kora jai
 const allController = require('./controller/pollController');
-const port = process.env.port || 4050
+const port = process.env.PORT || 4050
 const app = express();//aitar kaj muloto : route handle kora,middleware function niya kaj kora
 // and templete engine niya kaj kora
 
@@ -14,8 +14,6 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-
-
 app.get('/create', allController.createPollGetController)
 app.post('/create', allController.createPollPostController)
 app.get('/polls', allController.getallPolls)
@@ -26,7 +24,10 @@ app.get('/',(req, res) => {
     res.render('create')
 })
 
-mongoose.connect('mongodb://localhost:27017/test')
+//Configure isProduction variable
+const isProduction = process.env.NODE_ENV === 'production';
+
+mongoose.connect(process.env.MONGODB_URL ||'mongodb://localhost:27017/test')
     .then( () => {
         app.listen(port,()=> {
             console.log(`Application is ready to serve on port ${port}`)
